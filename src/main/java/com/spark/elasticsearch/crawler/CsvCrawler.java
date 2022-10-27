@@ -23,7 +23,7 @@ public class CsvCrawler
   {
 //    String path = "C:\\niagara\\elk\\inputFiles\\exportedNodeset2.csv";
 //    String path = "https://fchcdnonprodmodelsync.blob.core.windows.net/fcmodelsyncinputfiles/exportedNodeset.csv";
-    String indexName = "nodeset5";
+    String indexName = "nodeset6";
 
     SparkSession sparkSession = null;
     try
