@@ -23,7 +23,7 @@ public class CsvCrawler
   {
 //    String path = "C:\\niagara\\elk\\inputFiles\\exportedNodeset2.csv";
 //    String path = "https://fchcdnonprodmodelsync.blob.core.windows.net/fcmodelsyncinputfiles/exportedNodeset.csv";
-    String indexName = "nodeset6";
+    String indexName = "nodeset7";
 
     SparkSession sparkSession = null;
     try
@@ -139,5 +139,11 @@ public class CsvCrawler
     }
 
     return true;
+  }
+
+  @GetMapping(value = "/crawl/test")
+  public String helloWorld()
+  {
+    return "Test";
   }
 }
