@@ -47,7 +47,7 @@ public class CsvCrawler
         .config("spark.es.nodes.wan.only","true")
         .getOrCreate();
 
-      logger.info("SparkSession established successfully...");
+      logger.info("========================SparkSession established successfully...");
 //          "fs.azure.account.key.fchcdnonprodmodelsync.blob.core.windows.net",
 //          "sp=r&st=2022-10-18T09:48:48Z&se=2022-10-18T17:48:48Z&sv=2021-06-08&sr=c&sig=NeyllBP1F98mDpg8hkSwDDgloPuU88PvqTBbgszytN4%3D"
 //      sparkSession.conf().set(
