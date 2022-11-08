@@ -153,6 +153,7 @@ public class CsvCrawler
   @GetMapping(value = "/crawl/test")
   public String helloWorld()
   {
+    logger.info("Test method logger....");
     return "Sai Gagan";
   }
 }
