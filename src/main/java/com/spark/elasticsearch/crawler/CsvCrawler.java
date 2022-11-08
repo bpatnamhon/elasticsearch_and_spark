@@ -1,5 +1,8 @@
 package com.spark.elasticsearch.crawler;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.apache.spark.sql.DataFrameReader;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -17,6 +20,8 @@ public class CsvCrawler
   public static final String ELASTIC_PASSWORD = "huCOxzoq4gPVR4sVAjFyrjDm";
   public static final String ELASTIC_HOST = "https://31c511244c91434bb86ddd0ee6955bd2.westus2.azure.elastic-cloud.com";
   public static final String ELASTIC_PORT = "9243";
+
+  private static Logger logger = Logger.getLogger("CsvCrawler");
 
   @GetMapping(value = "/crawl/csv")
   public boolean save()
@@ -42,6 +47,7 @@ public class CsvCrawler
         .config("spark.es.nodes.wan.only","true")
         .getOrCreate();
 
+      logger.info("SparkSession established successfully...");
 //          "fs.azure.account.key.fchcdnonprodmodelsync.blob.core.windows.net",
 //          "sp=r&st=2022-10-18T09:48:48Z&se=2022-10-18T17:48:48Z&sv=2021-06-08&sr=c&sig=NeyllBP1F98mDpg8hkSwDDgloPuU88PvqTBbgszytN4%3D"
 //      sparkSession.conf().set(
@@ -55,14 +61,17 @@ public class CsvCrawler
 //        .option("inferSchema", "true")
         .csv("wasbs://fcmodelsyncinputfiles@fchcdnonprodmodelsync.blob.core.windows.net/exportedNodeset.csv");
 //      csv.show();
+      logger.info("Dataset form read created....");
 
       JavaEsSparkSQL.saveToEs(csv, indexName);
+      logger.info("Saved successfully to Elasticsearch");
 //      Dataset<Row> rowDataset = JavaEsSparkSQL.esDF(sparkSession, indexName);
 
     }
     catch (Exception e)
     {
       System.out.println("===================================");
+      logger.log(Level.INFO, "Exception occurred... ", e);
       e.printStackTrace();
       System.out.println("===================================");
       throw e;
