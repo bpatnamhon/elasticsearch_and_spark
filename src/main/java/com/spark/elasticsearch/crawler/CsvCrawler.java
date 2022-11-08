@@ -36,10 +36,10 @@ public class CsvCrawler
       sparkSession = SparkSession.builder()
         .appName("studentData")
         .master("local[*]")
-//        .config(
-//          "fs.azure.sas.fchcdnonprodmodelsync.fcmodelsyncinputfiles.blob.core.windows.net",
-//          "c3A9ciZzdD0yMDIyLTEwLTE4VDA5OjQ4OjQ4WiZzZT0yMDIyLTEwLTE4VDE3OjQ4OjQ4WiZzdj0yMDIxLTA2LTA4JnNyPWMmc2lnPU5leWxsQlAxRjk4bURwZzhoa1N3RERnbG9QdVU4OFB2cVRCYmdzenl0TjQlM0Q="
-//        )
+        .config(
+          "fs.azure.sas.fchcdnonprodmodelsync.fcmodelsyncinputfiles.privatelink.blob.core.windows.net",
+          "c3A9ciZzdD0yMDIyLTEwLTE4VDA5OjQ4OjQ4WiZzZT0yMDIyLTEwLTE4VDE3OjQ4OjQ4WiZzdj0yMDIxLTA2LTA4JnNyPWMmc2lnPU5leWxsQlAxRjk4bURwZzhoa1N3RERnbG9QdVU4OFB2cVRCYmdzenl0TjQlM0Q="
+        )
         .config("spark.es.nodes", ELASTIC_HOST)
         .config("spark.es.port", ELASTIC_PORT)
         .config("spark.es.net.http.auth.user", ELASTIC_USERNAME)
@@ -48,6 +48,10 @@ public class CsvCrawler
         .getOrCreate();
 
       logger.info("========================SparkSession established successfully...");
+
+//      sparkSession.conf().set("fs.azure.sas.fchcdnonprodmodelsync.blob.core.windows.net", "c3A9ciZzdD0yMDIyLTEwLTE4VDA5OjQ4OjQ4WiZzZT0yMDIyLTEwLTE4VDE3OjQ4OjQ4WiZzdj0yMDIxLTA2LTA4JnNyPWMmc2lnPU5leWxsQlAxRjk4bURwZzhoa1N3RERnbG9QdVU4OFB2cVRCYmdzenl0TjQlM0Q=");
+
+      logger.info("========================SparkSession Blob storage trying to access it with PRIVATELINK...");
 //          "fs.azure.account.key.fchcdnonprodmodelsync.blob.core.windows.net",
 //          "sp=r&st=2022-10-18T09:48:48Z&se=2022-10-18T17:48:48Z&sv=2021-06-08&sr=c&sig=NeyllBP1F98mDpg8hkSwDDgloPuU88PvqTBbgszytN4%3D"
 //      sparkSession.conf().set(
@@ -59,11 +63,11 @@ public class CsvCrawler
       Dataset<Row> csv = sparkSession.read()
         .option("header", true)
         .option("inferSchema", "true")
-        .option(
-          "fs.azure.sas.fchcdnonprodmodelsync.fcmodelsyncinputfiles.blob.core.windows.net",
-          "c3A9ciZzdD0yMDIyLTEwLTE4VDA5OjQ4OjQ4WiZzZT0yMDIyLTEwLTE4VDE3OjQ4OjQ4WiZzdj0yMDIxLTA2LTA4JnNyPWMmc2lnPU5leWxsQlAxRjk4bURwZzhoa1N3RERnbG9QdVU4OFB2cVRCYmdzenl0TjQlM0Q="
-        )
-        .csv("wasbs://fcmodelsyncinputfiles@fchcdnonprodmodelsync.blob.core.windows.net/exportedNodeset.csv");
+//        .option(
+//          "fs.azure.sas.fchcdnonprodmodelsync.fcmodelsyncinputfiles.blob.core.windows.net",
+//          "c3A9ciZzdD0yMDIyLTEwLTE4VDA5OjQ4OjQ4WiZzZT0yMDIyLTEwLTE4VDE3OjQ4OjQ4WiZzdj0yMDIxLTA2LTA4JnNyPWMmc2lnPU5leWxsQlAxRjk4bURwZzhoa1N3RERnbG9QdVU4OFB2cVRCYmdzenl0TjQlM0Q="
+//        )
+        .csv("wasbs://fcmodelsyncinputfiles@fchcdnonprodmodelsync.privatelink.blob.core.windows.net/exportedNodeset.csv");
 //      csv.show();
       logger.info("Dataset form read created....");
 
