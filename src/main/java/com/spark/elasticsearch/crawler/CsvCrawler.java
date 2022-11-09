@@ -17,9 +17,14 @@ public class CsvCrawler
 {
 
   public static final String ELASTIC_USERNAME = "elastic";
-  public static final String ELASTIC_PASSWORD = "huCOxzoq4gPVR4sVAjFyrjDm";
-  public static final String ELASTIC_HOST = "https://31c511244c91434bb86ddd0ee6955bd2.westus2.azure.elastic-cloud.com";
+  public static final String ELASTIC_PASSWORD = "LD6qOy8lwbsyEtVBk8D0HQjr";
+  public static final String ELASTIC_HOST = "https://e5c04e747de0484b8900746f2fde90c1.eastus.azure.elastic-cloud.com";
+//  public static final String ELASTIC_HOST = "https://31c511244c91434bb86ddd0ee6955bd2.westus2.azure.elastic-cloud.com";
+//  public static final String ELASTIC_PASSWORD = "huCOxzoq4gPVR4sVAjFyrjDm";
   public static final String ELASTIC_PORT = "9243";
+  public static final String BASE64ENCODED_SAS_TOKEN = "c3A9ciZzdD0yMDIyLTExLTA5VDA5OjQwOjM3WiZzZT0yMDIyLTExLTA5VDE3OjQwOjM3WiZzcHI9aHR0cHMmc3Y9MjAyMS0wNi0wOCZzcj1jJnNpZz1kTzhrUlU5YlFCMEFUQTM3MDlmQng2RGUlMkZ2ODlBJTJGOHZrNlRQMXFiZTR1YyUzRA==";
+//  public static final String BASE64ENCODED_SAS_TOKEN =           "c3A9ciZzdD0yMDIyLTEwLTE4VDA5OjQ4OjQ4WiZzZT0yMDIyLTEwLTE4VDE3OjQ4OjQ4WiZzdj0yMDIxLTA2LTA4JnNyPWMmc2lnPU5leWxsQlAxRjk4bURwZzhoa1N3RERnbG9QdVU4OFB2cVRCYmdzenl0TjQlM0Q=";
+  public static final String BLOB_STORAGE_SAS_LINK = "fs.azure.sas.fchcdnonprodmodelsync.fcmodelsyncinputfiles.privatelink.blob.core.windows.net";
 
   private static Logger logger = Logger.getLogger("CsvCrawler");
 
@@ -28,7 +33,7 @@ public class CsvCrawler
   {
 //    String path = "C:\\niagara\\elk\\inputFiles\\exportedNodeset2.csv";
 //    String path = "https://fchcdnonprodmodelsync.blob.core.windows.net/fcmodelsyncinputfiles/exportedNodeset.csv";
-    String indexName = "nodeset7";
+    String indexName = "nodeset8";
 
     SparkSession sparkSession = null;
     try
@@ -37,8 +42,8 @@ public class CsvCrawler
         .appName("studentData")
         .master("local[*]")
         .config(
-          "fs.azure.sas.fchcdnonprodmodelsync.fcmodelsyncinputfiles.privatelink.blob.core.windows.net",
-          "c3A9ciZzdD0yMDIyLTEwLTE4VDA5OjQ4OjQ4WiZzZT0yMDIyLTEwLTE4VDE3OjQ4OjQ4WiZzdj0yMDIxLTA2LTA4JnNyPWMmc2lnPU5leWxsQlAxRjk4bURwZzhoa1N3RERnbG9QdVU4OFB2cVRCYmdzenl0TjQlM0Q="
+          BLOB_STORAGE_SAS_LINK,
+          BASE64ENCODED_SAS_TOKEN
         )
         .config("spark.es.nodes", ELASTIC_HOST)
         .config("spark.es.port", ELASTIC_PORT)
@@ -67,7 +72,7 @@ public class CsvCrawler
 //          "fs.azure.sas.fchcdnonprodmodelsync.fcmodelsyncinputfiles.blob.core.windows.net",
 //          "c3A9ciZzdD0yMDIyLTEwLTE4VDA5OjQ4OjQ4WiZzZT0yMDIyLTEwLTE4VDE3OjQ4OjQ4WiZzdj0yMDIxLTA2LTA4JnNyPWMmc2lnPU5leWxsQlAxRjk4bURwZzhoa1N3RERnbG9QdVU4OFB2cVRCYmdzenl0TjQlM0Q="
 //        )
-        .csv("wasbs://fcmodelsyncinputfiles@fchcdnonprodmodelsync.privatelink.blob.core.windows.net/exportedNodeset.csv");
+        .csv("wasbs://fcmodelsyncinputfiles@fchcdnonprodmodelsync.privatelink.blob.core.windows.net/exportedNodesetSmall.csv");
 //      csv.show();
       logger.info("Dataset form read created....");
 
@@ -162,6 +167,6 @@ public class CsvCrawler
   public String helloWorld()
   {
     logger.info("Test method logger....");
-    return "Sai Gagan";
+    return "Sai Gagan 1";
   }
 }
