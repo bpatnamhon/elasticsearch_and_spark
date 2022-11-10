@@ -24,7 +24,7 @@ public class CsvCrawler
   public static final String ELASTIC_PORT = "9243";
   public static final String BASE64ENCODED_SAS_TOKEN = "c3A9ciZzdD0yMDIyLTExLTA5VDA5OjQwOjM3WiZzZT0yMDIyLTExLTA5VDE3OjQwOjM3WiZzcHI9aHR0cHMmc3Y9MjAyMS0wNi0wOCZzcj1jJnNpZz1kTzhrUlU5YlFCMEFUQTM3MDlmQng2RGUlMkZ2ODlBJTJGOHZrNlRQMXFiZTR1YyUzRA==";
 //  public static final String BASE64ENCODED_SAS_TOKEN =           "c3A9ciZzdD0yMDIyLTEwLTE4VDA5OjQ4OjQ4WiZzZT0yMDIyLTEwLTE4VDE3OjQ4OjQ4WiZzdj0yMDIxLTA2LTA4JnNyPWMmc2lnPU5leWxsQlAxRjk4bURwZzhoa1N3RERnbG9QdVU4OFB2cVRCYmdzenl0TjQlM0Q=";
-  public static final String BLOB_STORAGE_SAS_LINK = "fs.azure.sas.fchcdnonprodmodelsync.fcmodelsyncinputfiles.privatelink.blob.core.windows.net";
+  public static final String BLOB_STORAGE_SAS_LINK = "fs.azure.sas.fchcdnonprodmodelsync.fcmodelsyncinputfiles.blob.core.windows.net";
 
   private static Logger logger = Logger.getLogger("CsvCrawler");
 
@@ -35,6 +35,7 @@ public class CsvCrawler
 //    String path = "https://fchcdnonprodmodelsync.blob.core.windows.net/fcmodelsyncinputfiles/exportedNodeset.csv";
     String indexName = "nodeset8";
 
+    logger.info("============================== /crawl/csv ...");
     SparkSession sparkSession = null;
     try
     {
@@ -52,11 +53,11 @@ public class CsvCrawler
         .config("spark.es.nodes.wan.only","true")
         .getOrCreate();
 
-      logger.info("========================SparkSession established successfully...");
+      logger.info("============================== SparkSession established successfully...");
 
 //      sparkSession.conf().set("fs.azure.sas.fchcdnonprodmodelsync.blob.core.windows.net", "c3A9ciZzdD0yMDIyLTEwLTE4VDA5OjQ4OjQ4WiZzZT0yMDIyLTEwLTE4VDE3OjQ4OjQ4WiZzdj0yMDIxLTA2LTA4JnNyPWMmc2lnPU5leWxsQlAxRjk4bURwZzhoa1N3RERnbG9QdVU4OFB2cVRCYmdzenl0TjQlM0Q=");
 
-      logger.info("========================SparkSession Blob storage trying to access it with PRIVATELINK...");
+      logger.info("============================== SparkSession Blob storage trying to access it with PRIVATELINK...");
 //          "fs.azure.account.key.fchcdnonprodmodelsync.blob.core.windows.net",
 //          "sp=r&st=2022-10-18T09:48:48Z&se=2022-10-18T17:48:48Z&sv=2021-06-08&sr=c&sig=NeyllBP1F98mDpg8hkSwDDgloPuU88PvqTBbgszytN4%3D"
 //      sparkSession.conf().set(
@@ -74,10 +75,10 @@ public class CsvCrawler
 //        )
         .csv("wasbs://fcmodelsyncinputfiles@fchcdnonprodmodelsync.privatelink.blob.core.windows.net/exportedNodesetSmall.csv");
 //      csv.show();
-      logger.info("Dataset form read created....");
+      logger.info("============================== Dataset form read created....");
 
       JavaEsSparkSQL.saveToEs(csv, indexName);
-      logger.info("Saved successfully to Elasticsearch");
+      logger.info("============================== Saved successfully to Elasticsearch");
 //      Dataset<Row> rowDataset = JavaEsSparkSQL.esDF(sparkSession, indexName);
 
     }
@@ -166,7 +167,7 @@ public class CsvCrawler
   @GetMapping(value = "/crawl/test")
   public String helloWorld()
   {
-    logger.info("Test method logger....");
-    return "Sai Gagan 11";
+    logger.info("============================== Test method logger 2....");
+    return "Sai Gagan 111";
   }
 }
