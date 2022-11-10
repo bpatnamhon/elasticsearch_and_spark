@@ -35,7 +35,7 @@ public class CsvCrawler
 //    String path = "https://fchcdnonprodmodelsync.blob.core.windows.net/fcmodelsyncinputfiles/exportedNodeset.csv";
     String indexName = "nodeset8";
 
-    logger.info("============================== /crawl/csv ...");
+    logger.info("============================== .../crawl/csv ...");
     SparkSession sparkSession = null;
     try
     {
